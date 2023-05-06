@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom'
+import axios from 'axios';
 
-function App() {
+import Login from './pages/login';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import Error from './pages/Error';
+import Header from './components/Header';
+
+const App = () => {
+
+
+  const [loginStatus, setLoginStatus] = useState(false);
+
+  axios.defaults.baseURL = 'http://localhost:3000';
+  axios.defaults.withCredentials = true;
+
+  const _checkLoginStatus = () => {
+    let status = localStorage.getItem("token");
+    if (status) {
+      setLoginStatus(true);
+    }
+  }
+  useEffect(() => {
+    _checkLoginStatus();
+  }, [])
+
+  if (loginStatus === false) {
+    return (
+      <>
+        {/* <Header/> */}
+        <Routes>
+          <Route path="/" element={<Login setLoginStatus={setLoginStatus} />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </>
+    )
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Header setLoginStatus={setLoginStatus} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </>
+  )
 }
 
 export default App;
