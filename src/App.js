@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom'
-import axios from 'axios';
 
 import Login from './pages/login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Error from './pages/Error';
 import Header from './components/Header';
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 const App = () => {
 
 
   const [loginStatus, setLoginStatus] = useState(false);
 
-  axios.defaults.baseURL = 'http://localhost:3000';
-  axios.defaults.withCredentials = true;
+
 
   const _checkLoginStatus = () => {
     let status = localStorage.getItem("token");
@@ -33,6 +33,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login setLoginStatus={setLoginStatus} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Error/>}/>
         </Routes>
       </>
     )
@@ -42,10 +43,14 @@ const App = () => {
   return (
     <>
       <Header setLoginStatus={setLoginStatus} />
+      <div style={{paddingTop:65}}>
       <Routes>
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
       </Routes>
+    </div>
     </>
   )
 }

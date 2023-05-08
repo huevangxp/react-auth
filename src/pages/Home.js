@@ -1,28 +1,51 @@
-import axios from 'axios'
-import React, { useEffect } from 'react';
+// import axios from 'axios'
+import React from 'react';
+import ReactTypingEffect from 'react-typing-effect';
+
+
+
+// import axios from '../constants/axios';
+
 
 const Home = () => {
 
+  // const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    getUser()
-  }, [])
-  
+  // useEffect(() => {
+  //   getUser()
+  // }, [])
 
-const getUser = async () => {
-    try {
-        await axios.get('http://localhost:7000/api/user')
-            .then((data) => {
-                console.log('user data', data.data.user);
-            })
-    } catch (error) {
-        console.log(error);
-    }
-}
+  // const getUser = async () => {
+  //   try {
+  //     await axios.get('/user')
+  //       .then((data) => {
+  //         setUser(data.data.user)
+  //         console.log(data.data.user);
+  //       })
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   return (
     <div>
-      <h2>huevang home page</h2>
+      <div style={{
+        height: '80vh',
+        backgroundColor: 'black',
+        display: 'flex',
+        color: 'white',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <div>
+        <h1>
+          <ReactTypingEffect
+            text={["Hello.", "World!"]}
+          />
+        </h1>
+        {/* <p>ສະບາຍດີ</p> */}
+       </div>
+      </div>
     </div>
   )
 }

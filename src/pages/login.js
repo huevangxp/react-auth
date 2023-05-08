@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import axios from '../constants/axios';
+import { Link } from 'react-router-dom';
 
 const Login = ({ setLoginStatus }) => {
 
@@ -16,8 +17,7 @@ const Login = ({ setLoginStatus }) => {
                 email,
                 password
             }
-            // console.log(user);
-            await axios.post('http://localhost:7000/api/login', user)
+            await axios.post('/login', user)
                 .then((data) => {
                     localStorage.setItem("token", data);
                     setLoginStatus(true);
@@ -41,7 +41,8 @@ const Login = ({ setLoginStatus }) => {
                             height: 150,
                             borderRadius: '50%'
                         }}
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCXSirlWM2XH2Og8-KhyAVA4qk_C1NwF9KrA&usqp=CAU" />
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCXSirlWM2XH2Og8-KhyAVA4qk_C1NwF9KrA&usqp=CAU"
+                        alt='profile' />
                 </div>
                 <form onSubmit={userLogin}>
                     <div>
@@ -63,10 +64,13 @@ const Login = ({ setLoginStatus }) => {
                             placeholder='password' /><br />
                     </div>
                     <div className=' d-flex justify-content-end'>
-
                         <button className="btn btn-primary px-4">Login</button>
                     </div>
                 </form>
+            <div>
+                    <span>if you want to create </span>
+                    <Link to='/register' className="btn btn-outline-danger btn-sm">New Account</Link>
+            </div>
             </div>
         </div>
     )

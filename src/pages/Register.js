@@ -1,20 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from '../constants/axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+
+    const navigate = useNavigate()
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const userRegister = (e) => {
         e.preventDefault();
-        alert(username, password);
+        try {
+            const user = {
+                username,
+                email,
+                phone,
+                password
+            }
+            if (password === confirmPassword) {
+                axios.post('/register', user)
+                    .then((data) => {
+                        console.log(data.data);
+                        navigate('/')
+                })
+            }
+            else {
+                console.log('password not match');
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
-        <div className='container d-flex justify-content-center mt-5'>
-            <div className='shadow p-5 mb-5 bg-white rounded w-50'>
+        <div className='container d-flex justify-content-center mt-2'>
+            <div className='shadow p-5  bg-white rounded w-50'>
                 <div className='d-flex justify-content-center'>
                     <h1>Login Form</h1>
                     {/* <img
@@ -60,10 +84,26 @@ const Register = () => {
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                             type="password"
-                            placeholder='password' /><br />
+                            placeholder='password' />
                     </div>
+
+                    <div>
+                        <label>confirm password</label><br />
+                        <input
+                            className='form-control'
+                            value={confirmPassword}
+                            onChange={e => setConfirmPassword(e.target.value)}
+                            type="password"
+                            placeholder='confirm password' /><br />
+                    </div>
+                   
                     <div className=' d-flex justify-content-end'>
 
+                        <Link to='/'>
+                            <button className="btn btn-outline-danger mx-2 px-4">
+                                Cancel
+                            </button>
+                        </Link>
                         <button className="btn btn-primary px-4">Register</button>
                     </div>
                 </form>
