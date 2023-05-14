@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import axios from '../constants/axios';
+import axios from '../../constants/axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = ({ setLoginStatus }) => {
 
 
-    const [email, setEmail] = useState('huevang@email.com');
-    const [password, setPassword] = useState('huevang');
-
-
+    const [email, setEmail] = useState('huevang933@gmail.com');
+    const [password, setPassword] = useState('huevangxp');
 
     const userLogin = async (e) => {
         e.preventDefault();
@@ -17,13 +16,16 @@ const Login = ({ setLoginStatus }) => {
                 email,
                 password
             }
-            await axios.post('/login', user)
+            await axios.post('/login', {...user})
                 .then((data) => {
                     localStorage.setItem("token", data);
+                    toast.success('login successfully...')
                     setLoginStatus(true);
                     setEmail('');
                     setPassword('');
 
+                }).catch((error) => {
+                    toast.error("login failed", error);
                 })
         } catch (error) {
             console.log(error);
@@ -63,6 +65,10 @@ const Login = ({ setLoginStatus }) => {
                             type="password"
                             placeholder='password' /><br />
                     </div>
+                    <div>
+                    <span>if you forget password</span>
+                    <Link to='/input-otp' className='btn' style={{color:'red', borderBottom:'1px solid red'}}>reset password</Link>
+            </div>
                     <div className=' d-flex justify-content-end'>
                         <button className="btn btn-primary px-4">Login</button>
                     </div>
@@ -71,6 +77,7 @@ const Login = ({ setLoginStatus }) => {
                     <span>if you want to create </span>
                     <Link to='/register' className="btn btn-outline-danger btn-sm">New Account</Link>
             </div>
+            
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import axios from '../constants/axios';
+import axios from '../../constants/axios';
 import { Link, useNavigate } from 'react-router-dom';
+import {toast}  from 'react-toastify';
 
 const Register = () => {
 
@@ -24,9 +25,22 @@ const Register = () => {
             if (password === confirmPassword) {
                 axios.post('/register', user)
                     .then((data) => {
-                        console.log(data.data);
-                        navigate('/')
-                })
+                        // console.log(data.data);
+                        axios.post('/message', { email: email })
+                            .then(() => {
+                                toast.success('🦄 Register success!', {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                    });
+                                navigate('/otp')
+                            })
+                    })
             }
             else {
                 console.log('password not match');
@@ -96,7 +110,7 @@ const Register = () => {
                             type="password"
                             placeholder='confirm password' /><br />
                     </div>
-                   
+
                     <div className=' d-flex justify-content-end'>
 
                         <Link to='/'>
