@@ -7,7 +7,7 @@ const Login = ({ setLoginStatus }) => {
 
 
     const [email, setEmail] = useState('huevang933@gmail.com');
-    const [password, setPassword] = useState('huevangxp');
+    const [password, setPassword] = useState('huevang');
 
     const userLogin = async (e) => {
         e.preventDefault();

@@ -27,7 +27,7 @@ const Header = ({ setLoginStatus }) => {
                             src="https://png.pngtree.com/png-clipart/20210321/original/pngtree-letter-l-g-lg-gl-logo-png-image_6109481.jpg" alt="logo" />
                    </Link>
                     </Navbar.Brand>
-                    <Nav className=" d-flex justify-content-center">
+                    <Nav className=" d-flex justify-content-center font-weight-bold">
                         <Nav.Link >
                             <Link to="/" style={{textDecoration:'none', color:'black'}}>
                             Home
